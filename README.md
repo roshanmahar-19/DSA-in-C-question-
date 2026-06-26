@@ -1,2 +1,15 @@
 # DSA-in-C-question-
-What I learn in DSA
+
+
+This repository contains my first-year  DSA in C programming practice programs.
+
+## Topics
+- Variables
+- Loops
+- Functions
+- Arrays
+- Recursion
+- Tower of Hanoi
+- GCD
+
+Author: Roshan
