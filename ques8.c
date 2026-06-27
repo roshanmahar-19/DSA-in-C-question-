@@ -1,42 +1,31 @@
 #include <stdio.h>
+#define MAX 100
+
+int queue[MAX], front = -1, rear = -1;
+
+void enqueue(int val) {
+    if (rear == MAX - 1) { printf("Queue Full!\n"); return; }
+    if (front == -1) front = 0;
+    queue[++rear] = val;
+    printf("Enqueued: %d\n", val);
+}
+
+void dequeue() {
+    if (front == -1 || front > rear) { printf("Queue Empty!\n"); return; }
+    printf("Dequeued: %d\n", queue[front++]);
+}
+
+void display() {
+    if (front == -1 || front > rear) { printf("Queue is empty!\n"); return; }
+    printf("Queue: ");
+    for (int i = front; i <= rear; i++) printf("%d ", queue[i]);
+    printf("\n");
+}
 
 int main() {
-    int arr[100], n, i, key;
-    int low, high, mid, found = 0;
-
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
-
-    printf("Enter elements in sorted order:\n");
-    for(i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
-
-    printf("Enter element to search: ");
-    scanf("%d", &key);
-
-    low = 0;
-    high = n - 1;
-
-    while(low <= high) {
-        mid = (low + high) / 2;
-
-        if(arr[mid] == key) {
-            found = 1;
-            printf("Element found at position %d\n", mid + 1);
-            break;
-        }
-        else if(arr[mid] < key) {
-            low = mid + 1;
-        }
-        else {
-            high = mid - 1;
-        }
-    }
-
-    if(found == 0) {
-        printf("Element not found\n");
-    }
-
+    enqueue(10); enqueue(20); enqueue(30);
+    display();
+    dequeue();
+    display();
     return 0;
 }

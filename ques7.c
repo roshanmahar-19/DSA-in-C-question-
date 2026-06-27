@@ -1,30 +1,47 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#define MAX 100
 
-int main() {
-    int arr[100], n, i, key, found = 0;
+char stack[MAX]; int top = -1;
 
-    printf("Enter number of elements: ");
-    scanf("%d", &n);
+void push(char c)   { stack[++top] = c; }
+char pop()          { return stack[top--]; }
+char peek()         { return stack[top]; }
+int  isEmpty()      { return top == -1; }
 
-    printf("Enter array elements:\n");
-    for(i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
+int precedence(char c) {
+    if (c == '^') return 3;
+    if (c == '*' || c == '/') return 2;
+    if (c == '+' || c == '-') return 1;
+    return 0;
+}
 
-    printf("Enter element to search: ");
-    scanf("%d", &key);
-
-    for(i = 0; i < n; i++) {
-        if(arr[i] == key) {
-            found = 1;
-            printf("Element found at position %d\n", i + 1);
-            break;
+void infixToPostfix(char *exp) {
+    char result[MAX]; int k = 0;
+    for (int i = 0; exp[i]; i++) {
+        char c = exp[i];
+        if (isalnum(c)) {
+            result[k++] = c;            // operand → output
+        } else if (c == '(') {
+            push(c);
+        } else if (c == ')') {
+            while (!isEmpty() && peek() != '(')
+                result[k++] = pop();
+            pop();                      // discard '('
+        } else {
+            while (!isEmpty() && precedence(peek()) >= precedence(c))
+                result[k++] = pop();
+            push(c);
         }
     }
+    while (!isEmpty()) result[k++] = pop();
+    result[k] = '\0';
+    printf("Infix  : %s\nPostfix: %s\n", exp, result);
+}
 
-    if(found == 0) {
-        printf("Element not found\n");
-    }
-
+int main() {
+    char exp[] = "A+B*C-D";
+    infixToPostfix(exp);
     return 0;
 }
