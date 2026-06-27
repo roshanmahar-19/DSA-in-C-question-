@@ -11,5 +11,11 @@ This repository contains my first-year  DSA in C programming practice programs.
 - Recursion
 - Tower of Hanoi
 - GCD
+- stack
+- linked list
+- prefix
+- postfix
+- sorts
+- binary tree
 
 Author: Roshan
