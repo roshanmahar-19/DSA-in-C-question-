@@ -17,5 +17,6 @@ This repository contains my first-year  DSA in C programming practice programs.
 - postfix
 - sorts
 - binary tree
+- also have NSM 
 
 Author: Roshan
